@@ -10,7 +10,7 @@ if [ $# -eq 0 ] || [ $# -ne 3 ];
     exit_with_message "You need to provide following arguments: (1) the path of the package-feed.xml, (2) the path to a package file (.tar.tgz), and (3) the base url incl. subpath of the package location"
 fi
 
-for dependency in "jq" "tar" "basename"
+for dependency in "jq" "tar" "basename" "xmllint" "xml"
 do
     if ! [ -x "$(command -v $dependency)" ]; then
         exit_with_message "$dependency is not installed."

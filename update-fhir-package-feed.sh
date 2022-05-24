@@ -39,6 +39,6 @@ fileName=$(basename $2)
 baseUrlWithSubpath="$baseUrlWithSubpath$name/$version/$fileName"
 item="<title>$name#$version</title><description>$description</description><link>$baseUrlWithSubpath</link><guid isPermaLink=\"true\">$baseUrlWithSubpath</guid><dc:creator>$creator</dc:creator><fhir:version>$fhirVersion</fhir:version><fhir:kind>IG</fhir:kind><pubDate>$pubDate</pubDate>"
 
-patchedXml=$(xml ed --subnode "//channel" --type "elem" -n "item" -v "$item" $1 | xmlstarlet unesc | xmllint --format - | xmlstarlet fo -o)
+patchedXml=$(xmlstarlet ed --subnode "//channel" --type "elem" -n "item" -v "$item" $1 | xmlstarlet unesc | xmllint --format - | xmlstarlet fo -o)
 echo -e "$patchedXml" > $1
 rm -rf package/

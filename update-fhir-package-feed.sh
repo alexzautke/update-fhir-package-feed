@@ -17,6 +17,10 @@ do
     fi
 done
 
+echo "Path to package-feed.xml: $1"
+echo "Path to package file: $2"
+echo "Base url of package location: $3"
+
 tar zxf $2
 
 packageJson=$(cat package/package.json)

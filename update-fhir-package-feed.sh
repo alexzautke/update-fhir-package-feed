@@ -34,6 +34,8 @@ pubDate=$(date '+%a, %d %b %Y %T %Z')
 if ! [[ "$3" == */ ]];
 then
   baseUrlWithSubpath="$3/"
+else
+  baseUrlWithSubpath="$3"
 fi
 
 xmlstarlet ed --inplace -u "//channel/lastBuildDate" -v "$pubDate" $1
@@ -41,7 +43,6 @@ xmlstarlet ed --inplace -u "//channel/pubDate" -v "$pubDate" $1
 
 fileName=$(basename $2)
 baseUrlWithSubpath="$baseUrlWithSubpath$name/$version/$fileName"
-echo "Debug baseUrlWithSubpath: $baseUrlWithSubpath"
 item="<title>$name#$version</title><description>$description</description><link>$baseUrlWithSubpath</link><guid isPermaLink=\"true\">$baseUrlWithSubpath</guid><dc:creator>$creator</dc:creator><fhir:version>$fhirVersion</fhir:version><fhir:kind>IG</fhir:kind><pubDate>$pubDate</pubDate>"
 
 patchedXml=$(xmlstarlet ed --subnode "//channel" --type "elem" -n "item" -v "$item" $1 | xmlstarlet unesc | xmllint --format - | xmlstarlet fo -o)

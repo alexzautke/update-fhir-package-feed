@@ -24,7 +24,7 @@ echo "Base url of package location: $3"
 tar zxf $2
 
 packageJson=$(cat package/package.json)
-name=$(echo "$packageJson" | jq --raw-output .name)
+name=$(echo "$packageJson" | jq --raw-output .description) # Workaround: In Firely.Terminal v2.5.0-beta-7, fhir pack will not use the correct name for the generated package. The correct name must come from the description.
 version=$(echo "$packageJson" | jq --raw-output .version)
 description=$(echo "$packageJson" | jq --raw-output .description)
 creator=$(echo "$packageJson" | jq --raw-output .author)
